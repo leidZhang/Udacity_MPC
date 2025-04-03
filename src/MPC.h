@@ -2,7 +2,7 @@
 #define MPC_H
 
 #include <vector>
-#include "Eigen-3.3/Eigen/Core"
+// #include "Eigen-3.3/Eigen/Core"
 
 class MPC {
 	public:
@@ -32,7 +32,7 @@ class MPC {
 
 	// Solve the model given an initial state and polynomial coefficients.
 	// Return the first actuations.
-	std::vector<double> Solve(const Eigen::VectorXd &state, const Eigen::VectorXd &coeffs);
+	std::vector<double> Solve(const std::vector<double> &state, const std::vector<double> &coeffs);
 };
 
 #endif  // MPC_H

@@ -4,10 +4,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Eigen-3.3/Eigen/Core"
+// #include "Eigen-3.3/Eigen/Core"
 
 using CppAD::AD;
-using Eigen::VectorXd;
+// using Eigen::VectorXd;
 
 
 const size_t N = 10;
@@ -43,8 +43,8 @@ class FG_eval {
     double dt = 0.1; 
     int time_step = 10;
     // Fitted polynomial coefficients
-    VectorXd coeffs;
-    FG_eval(VectorXd coeffs) { this->coeffs = coeffs; }
+    std::vector<double> coeffs;
+    FG_eval(std::vector<double> coeffs) { this->coeffs = coeffs; }
 
     typedef CPPAD_TESTVECTOR(AD<double>) ADvector;
 
@@ -119,7 +119,7 @@ class FG_eval {
 MPC::MPC() {}
 MPC::~MPC() {}
 
-std::vector<double> MPC::Solve(const VectorXd &state, const VectorXd &coeffs) {
+std::vector<double> MPC::Solve(const std::vector<double> &state, const std::vector<double> &coeffs) {
     bool ok = true;
     typedef CPPAD_TESTVECTOR(double) Dvector;
 
