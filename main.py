@@ -1,10 +1,11 @@
 import sys
+import math
+import time
+
 sys.path.append("build/")
-from mpc import MPC 
+from mpc import MPCPolicy
 
 if __name__ == "__main__":
-    mpc = MPC()
-    print(mpc.__doc__)
-    for i in range(1):
-        res = mpc.solve([i, i, i, i, i, i], [1])
-        print("Res: ", res)
+    policy: MPCPolicy = MPCPolicy()
+    policy.set_dt(0.2)
+    print(policy.get_dt())

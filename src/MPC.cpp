@@ -4,21 +4,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-// #include "Eigen-3.3/Eigen/Core"
+#include "Eigen-3.3/Eigen/Core"
 
 using CppAD::AD;
-// using Eigen::VectorXd;
-namespace py = pybind11;
-
-PYBIND11_MODULE(mpc, m) {
-    m.doc() = "MPC module"; 
-
-    py::class_<MPC>(m, "MPC")
-        .def(py::init<>())
-        .def("solve", &MPC::Solve); 
-}
+using Eigen::VectorXd;
 
 
 const size_t N = 10;
@@ -54,8 +43,8 @@ class FG_eval {
     double dt = 0.1; 
     int time_step = 10;
     // Fitted polynomial coefficients
-    std::vector<double> coeffs;
-    FG_eval(std::vector<double> coeffs) { this->coeffs = coeffs; }
+    VectorXd coeffs;
+    FG_eval(VectorXd coeffs) { this->coeffs = coeffs; }
 
     typedef CPPAD_TESTVECTOR(AD<double>) ADvector;
 
@@ -130,7 +119,9 @@ class FG_eval {
 MPC::MPC() {}
 MPC::~MPC() {}
 
-std::vector<double> MPC::Solve(const std::vector<double> &state, const std::vector<double> &coeffs) {
+void MPC::setDt(double dt) {this->dt = dt; }
+
+std::vector<double> MPC::Solve(const VectorXd &state, const VectorXd &coeffs) {
     bool ok = true;
     typedef CPPAD_TESTVECTOR(double) Dvector;
 

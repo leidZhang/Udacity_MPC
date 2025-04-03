@@ -12,7 +12,7 @@ set(CMAKE_CXX_FLAGS "${CXX_FLAGS}")
 set(CMAKE_CXX_STANDARD 11)
 
 # set(sources src/MPC.cpp src/main.cpp)
-set(sources src/MPC.cpp)
+set(sources src/MPC.cpp src/MPCPolicy.cpp)
 # Ensure position-independent code for shared libraries
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 

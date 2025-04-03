@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Eigen-3.3/Eigen/Core"
+#include "Eigen-3.3/Eigen/QR"
 
 using Eigen::VectorXd;
 using std::string;

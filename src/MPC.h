@@ -2,14 +2,14 @@
 #define MPC_H
 
 #include <vector>
-// #include "Eigen-3.3/Eigen/Core"
+#include "Eigen-3.3/Eigen/Core"
 
 class MPC {
 	public:
 	/**
 	 * TODO: Set the timestep length and duration
 	 */
-	const double dt = 0.1;
+	double dt = 0.1;
 	const double Lf = 2.67;
 
 	const int num_of_states = 6; // px, py, psi, v, cte, epsi
@@ -32,7 +32,8 @@ class MPC {
 
 	// Solve the model given an initial state and polynomial coefficients.
 	// Return the first actuations.
-	std::vector<double> Solve(const std::vector<double> &state, const std::vector<double> &coeffs);
+	void setDt(double dt); 
+	std::vector<double> Solve(const Eigen::VectorXd &state, const Eigen::VectorXd &coeffs);
 };
 
 #endif  // MPC_H
