@@ -16,7 +16,12 @@ set(sources src/MPC.cpp)
 # Ensure position-independent code for shared libraries
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# find_package(pybind11 REQUIRED)
+# Install python3.8 and python3.8-dev
+set(Python3_EXECUTABLE "/usr/bin/python3.8")
+find_package(Python3 3.8 REQUIRED COMPONENTS Interpreter Development)
+# Install pybind11 via sudo apt inatll pybind11-dev
+set(PYBIND11_PYTHON_VERSION 3.8)
+find_package(pybind11 REQUIRED)
 
 include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
@@ -33,5 +38,5 @@ endif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 # Change cppad to 2022000 version
 # in solve_callback.cpp add # define HAVE_CSTDDEF and # undef HAVE_CSTDDEF
 # add_executable(mpc ${sources})
-add_library(mpc SHARED ${sources})
-target_link_libraries(mpc cppad_lib ipopt z ssl uv) # uWS)
+pybind11_add_module(mpc ${sources})
+target_link_libraries(mpc PRIVATE pybind11::module cppad_lib ipopt z ssl uv) # uWS)

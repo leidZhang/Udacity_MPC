@@ -4,10 +4,21 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
 // #include "Eigen-3.3/Eigen/Core"
 
 using CppAD::AD;
 // using Eigen::VectorXd;
+namespace py = pybind11;
+
+PYBIND11_MODULE(mpc, m) {
+    m.doc() = "MPC module"; 
+
+    py::class_<MPC>(m, "MPC")
+        .def(py::init<>())
+        .def("solve", &MPC::Solve); 
+}
 
 
 const size_t N = 10;
