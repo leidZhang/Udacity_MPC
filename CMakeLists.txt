@@ -12,7 +12,7 @@ set(CMAKE_CXX_FLAGS "${CXX_FLAGS}")
 set(CMAKE_CXX_STANDARD 11)
 
 # set(sources src/MPC.cpp src/main.cpp)
-set(sources src/MPC.cpp src/MPCPolicy.cpp)
+set(sources src/bind.cpp src/MPC.cpp src/MPCPolicy.cpp)
 # Ensure position-independent code for shared libraries
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -20,7 +20,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(Python3_EXECUTABLE "/usr/bin/python3.8")
 find_package(Python3 3.8 REQUIRED COMPONENTS Interpreter Development)
 # Install pybind11 via sudo apt inatll pybind11-dev
-set(PYBIND11_PYTHON_VERSION 3.8)
+set(PYBIND11_PYTHON_VERSION 3.8) 
 find_package(pybind11 REQUIRED)
 
 include_directories(/usr/local/include)
@@ -32,8 +32,6 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     link_directories(/usr/local/opt/openssl/lib)
     link_directories(/usr/local/Cellar/libuv/1*/lib)
 endif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-
-# pybind11_add_module(mpc ${source})
 
 # Change cppad to 2022000 version
 # in solve_callback.cpp add # define HAVE_CSTDDEF and # undef HAVE_CSTDDEF

@@ -1,8 +1,3 @@
-import sys
-import math
-import time
-
-sys.path.append("build/")
 from mpc import MPCPolicy
 
 if __name__ == "__main__":
