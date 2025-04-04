@@ -55,7 +55,7 @@ vector<double> MPCPolicy::step(vector<vector<double>> &nextWaypoints, vector<dou
         double diff_x = nextWaypoints[i][0] - px;
         double diff_y = nextWaypoints[i][1] - py;
         waypoints_x_carcoord[i] = diff_x * cos(-psi) - diff_y * sin(-psi);
-        waypoints_y_carcoord[i] = diff_y * cos(-psi) - diff_x * sin(-psi);
+        waypoints_y_carcoord[i] = diff_y * cos(-psi) + diff_x * sin(-psi);
     }
 
     // Fit polynomial to waypoints
