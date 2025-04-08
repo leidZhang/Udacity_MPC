@@ -45,6 +45,7 @@ class TCPServer:
 
     def reset(self) -> None:
         self.server_socket.bind(self.address)
+        self.server_socket.listen(1)
 
     def step(self, data_queue: Queue, response: Callable = lambda *args: "received") -> None:
         # wait for client to connect to the server
