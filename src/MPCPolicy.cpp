@@ -1,6 +1,7 @@
 #include <math.h>
 #include <vector>
 #include <string>
+#include <iostream>
 #include "MPC.h"
 #include "helpers.h"
 #include "MPCPolicy.h"
@@ -34,13 +35,17 @@ vector<double> MPCPolicy::step(vector<vector<double>> &nextWaypoints, vector<dou
 
     // Convert to local frame coord system
     const size_t num_of_waypoints = nextWaypoints.size();
+    std::cout << num_of_waypoints << std::endl;
     Eigen::VectorXd waypoints_x_carcoord(num_of_waypoints);
     Eigen::VectorXd waypoints_y_carcoord(num_of_waypoints);
     for (size_t i = 0; i < num_of_waypoints; i++) {
-        double diff_x = nextWaypoints[i][0] - px;
-        double diff_y = nextWaypoints[i][1] - py;
-        waypoints_x_carcoord[i] = diff_x * cos(-psi) - diff_y * sin(-psi);
-        waypoints_y_carcoord[i] = diff_y * cos(-psi) + diff_x * sin(-psi);
+        // double diff_x = nextWaypoints[i][0] - px;
+        // double diff_y = nextWaypoints[i][1] - py;
+        // waypoints_x_carcoord[i] = diff_x * cos(-psi) - diff_y * sin(-psi);
+        // waypoints_y_carcoord[i] = diff_y * cos(-psi) + diff_x * sin(-psi);
+
+        waypoints_x_carcoord[i] = nextWaypoints[i][0];
+        waypoints_y_carcoord[i] = nextWaypoints[i][1];
     }
 
     // Fit polynomial to waypoints

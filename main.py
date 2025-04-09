@@ -1,11 +1,10 @@
 import sys
 import time
-import socket
 import pickle
 import logging
 from queue import Queue
-from socket import AF_INET, SOCK_STREAM
-from typing import Callable, Tuple, Any, List
+from socket import socket, AF_INET, SOCK_STREAM
+from typing import Callable, Tuple, Any, List, Dict
 from threading import Thread, Event
 
 sys.path.append('./build')
@@ -23,7 +22,7 @@ class TCPClient:
     def _send_request(self, data: Any) -> Any:
         serialized_data: bytes = pickle.dumps(data)
         self.client_socket.sendall(serialized_data)
-        response_data: bytes = self.client_socket.recv(1024)
+        response_data: bytes = self.client_socket.recv(102400)
         return pickle.loads(response_data)
 
     def step(self, data_queue: Queue) -> Any:
@@ -42,26 +41,26 @@ class TCPServer:
     def __init__(self, port: int = 8080) -> None:
         self.server_socket: socket = socket(AF_INET, SOCK_STREAM)
         self.address: Tuple[str, int] = ('0.0.0.0', port)
+        self.server_socket.bind(self.address)
 
     def reset(self) -> None:
-        self.server_socket.bind(self.address)
         self.server_socket.listen(1)
 
     def step(self, data_queue: Queue, response: Callable = lambda *args: "received") -> None:
         # wait for client to connect to the server
-        logging.info("The video server module is ready to accept connection...")
+        print("The server module is ready to accept connection...")
         self.client_socket, self.client_address = self.server_socket.accept()
-        logging.info(f"Connected to {self.client_address}")
+        print(f"Connected to {self.client_address}")
 
         # transmit image to the client
         client_is_alive: bool = True
         while client_is_alive:
             try:
                 # receive the data from the client
-                serialized_data: bytes = self.client_socket.recv(1024)
+                serialized_data: bytes = self.client_socket.recv(102400)
                 data: Any = pickle.loads(serialized_data)
                 data_queue.put(data) 
-                print(f"Received data: {data}")
+                # print(f"Received data: {data}")
 
                 # send the response back to the client
                 response_data: Any = response(data)
@@ -74,6 +73,7 @@ class TCPServer:
         # close the connection if there's any issues
         self.client_address = ''
         self.client_socket.close()
+        print("Disconnected to the client")
 
 
 def run_tcp_server(obs_queue: Queue, act_queue: Queue, event: Event) -> None:
@@ -92,7 +92,10 @@ def run_mpc_policy(obs_queue: Queue, act_queue: Queue, event: Event) -> None:
         policy.reset()
         while event.is_set():
             start: float = time.perf_counter()
-            waypoints, state = obs_queue.get()
+            obs: Dict[str, Any] = obs_queue.get()
+            waypoints: List[float] = obs["waypoints"]
+            state: List[float] = obs["state_info"]
+
             action: List[float] = policy.step(waypoints, state)
             act_queue.put(action)
             elapsed: float = time.perf_counter() - start
