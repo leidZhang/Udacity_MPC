@@ -60,7 +60,7 @@ class TCPServer:
                 serialized_data: bytes = self.client_socket.recv(102400)
                 data: Any = pickle.loads(serialized_data)
                 data_queue.put(data) 
-                # print(f"Received data: {data}")
+                print(f"Received data: {data}")
 
                 # send the response back to the client
                 response_data: Any = response(data)
@@ -93,7 +93,7 @@ def run_mpc_policy(obs_queue: Queue, act_queue: Queue, event: Event) -> None:
         while event.is_set():
             start: float = time.perf_counter()
             obs: Dict[str, Any] = obs_queue.get()
-            waypoints: List[float] = obs["waypoints"]
+            waypoints: List[float] = obs["waypoints"][:6]
             state: List[float] = obs["state_info"]
 
             action: List[float] = policy.step(waypoints, state)
