@@ -1,3 +1,4 @@
+#include "MPC.h"
 #include "MPCPolicy.h"
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
@@ -13,4 +14,7 @@ PYBIND11_MODULE(mpc, m) {
         .def("get_dt", &MPCPolicy::getDt)
         .def("get_lf", &MPCPolicy::getLf)
         .def("step", &MPCPolicy::step);
+    py::class_<MPC>(m, "MPC")
+        .def(py::init<>())
+        .def("solve", &MPC::Solve); 
 }

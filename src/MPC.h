@@ -33,7 +33,7 @@ class MPC {
 	// Solve the model given an initial state and polynomial coefficients.
 	// Return the first actuations.
 	void setDt(double dt); 
-	std::vector<double> Solve(const Eigen::VectorXd &state, const Eigen::VectorXd &coeffs);
+	std::vector<double> Solve(const std::vector<double> &state, const std::vector<double> &coeffs);
 };
 
 #endif  // MPC_H

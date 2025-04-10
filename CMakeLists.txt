@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 # set(sources src/MPC.cpp src/main.cpp)
 set(sources src/bind.cpp src/MPC.cpp src/MPCPolicy.cpp)
+# set(sources src/bind.cpp src/MPC.cpp)
 # Ensure position-independent code for shared libraries
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 

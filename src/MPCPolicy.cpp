@@ -65,7 +65,10 @@ vector<double> MPCPolicy::step(vector<vector<double>> &nextWaypoints, vector<dou
     mpc_state << next_px, next_py, next_psi, next_v, next_cte, next_epsi;
 
     // Solve the MPC problem and get the solution
-    vector<double> solution = mpc.Solve(mpc_state, new_coeffs);
+    vector<double> stateVec(mpc_state.data(), mpc_state.data() + mpc_state.size());
+    vector<double> newCoeffsVec(new_coeffs.data(), new_coeffs.data() + new_coeffs.size());
+    // vector<double> solution = mpc.Solve(mpc_state, new_coeffs);
+    vector<double> solution = mpc.Solve(stateVec, newCoeffsVec);
     double steering = solution[0] / deg2rad(25);
     double throttle = solution[1];
 

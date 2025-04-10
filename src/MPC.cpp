@@ -43,8 +43,8 @@ class FG_eval {
     double dt = 0.1; 
     int time_step = 10;
     // Fitted polynomial coefficients
-    VectorXd coeffs;
-    FG_eval(VectorXd coeffs) { this->coeffs = coeffs; }
+    std::vector<double> coeffs;
+    FG_eval(std::vector<double> coeffs) { this->coeffs = coeffs; }
 
     typedef CPPAD_TESTVECTOR(AD<double>) ADvector;
 
@@ -121,7 +121,7 @@ MPC::~MPC() {}
 
 void MPC::setDt(double dt) {this->dt = dt; }
 
-std::vector<double> MPC::Solve(const VectorXd &state, const VectorXd &coeffs) {
+std::vector<double> MPC::Solve(const std::vector<double> &state, const std::vector<double> &coeffs) {
     bool ok = true;
     typedef CPPAD_TESTVECTOR(double) Dvector;
 
