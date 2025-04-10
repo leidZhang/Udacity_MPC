@@ -93,7 +93,7 @@ def run_mpc_policy(obs_queue: Queue, act_queue: Queue, event: Event) -> None:
         while event.is_set():
             start: float = time.perf_counter()
             obs: Dict[str, Any] = obs_queue.get()
-            waypoints: List[float] = obs["waypoints"][:6]
+            waypoints: List[float] = obs["waypoints"]
             state: List[float] = obs["state_info"]
 
             action: List[float] = policy.step(waypoints, state)
