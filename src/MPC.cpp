@@ -1,4 +1,5 @@
 #include "MPC.h"
+#include <math.h>
 #include <cppad/cppad.hpp>
 #include <cppad/ipopt/solve.hpp>
 #include <iostream>
@@ -183,8 +184,8 @@ std::vector<double> MPC::Solve(const std::vector<double> &state, const std::vect
 
     // The upper and lower limits of delta are set to -25 and 25 degrees (values in radians).
     for (size_t i = Index_delta_start; i < Index_a_start; i++) {
-        vars_lowerbound[i] = -0.436332;
-        vars_upperbound[i] = 0.436332;
+        vars_lowerbound[i] = -M_PI / 6;
+        vars_upperbound[i] = M_PI / 6;
     }
 
     // Acceleration/decceleration upper and lower limits.

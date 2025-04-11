@@ -72,7 +72,7 @@ vector<double> MPCPolicy::step(vector<vector<double>> &nextWaypoints, vector<dou
     vector<double> newCoeffsVec(new_coeffs.data(), new_coeffs.data() + new_coeffs.size());
     // vector<double> solution = mpc.Solve(mpc_state, new_coeffs);
     vector<double> solution = mpc.Solve(stateVec, newCoeffsVec);
-    double steering = solution[0] / deg2rad(25);
+    double steering = solution[0] / deg2rad(30);
     double throttle = solution[1];
 
     // Update action and return it
