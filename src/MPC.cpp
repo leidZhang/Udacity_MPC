@@ -36,7 +36,7 @@ const double W_diff_a = 15.0; // weight cost for high difference between consecu
 
 const double ref_cte = 0;
 const double ref_epsi = 0;
-const double ref_v = 60;
+const double ref_v = 2.0; // 60;
 
 class FG_eval {
     public:
