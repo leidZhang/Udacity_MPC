@@ -90,6 +90,7 @@ def run_mpc_policy(obs_queue: Queue, act_queue: Queue, event: Event) -> None:
     while True:
         event.wait()
         policy.reset()
+        policy.set_dt(0.2)
         while event.is_set():
             start: float = time.perf_counter()
             obs: Dict[str, Any] = obs_queue.get()

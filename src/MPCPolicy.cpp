@@ -30,7 +30,8 @@ vector<double> MPCPolicy::step(vector<vector<double>> &nextWaypoints, vector<dou
     double psi = currentStates[2]; // theta?
     double v = currentStates[3]; // velocity?
     // Read last action
-    double a = this->action[0]; // throttle
+    double a = currentStates[5];
+    // double a = this->action[0]; // throttle
     double delta = this->action[1]; // steering?
 
     // Convert to local frame coord system
@@ -73,6 +74,6 @@ vector<double> MPCPolicy::step(vector<vector<double>> &nextWaypoints, vector<dou
     double throttle = solution[1];
 
     // Update action and return it
-    this->action = {throttle, steering};
+    this->action = {throttle, steering, v};
     return this->action;
 }
