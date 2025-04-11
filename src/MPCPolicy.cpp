@@ -77,5 +77,32 @@ vector<double> MPCPolicy::step(vector<vector<double>> &nextWaypoints, vector<dou
 
     // Update action and return it
     this->action = {throttle, steering, v};
+
+    // Display the trajectory
+    vector<double> mpc_x_vals;
+    vector<double> mpc_y_vals;
+    for ( size_t i = 2; i < solution.size(); i++ ) {
+        if ( i % 2 == 0 ) {
+            mpc_x_vals.push_back( solution[i] );
+            std::cout << "mpc_x_vals: " << solution[i] << std::endl;
+        } else {
+            mpc_y_vals.push_back( solution[i] );
+            std::cout << "mpc_y_vals: " << solution[i] << std::endl;
+        }
+    }
+
+    // Display the waypoints/reference line
+    vector<double> next_x_vals;
+    vector<double> next_y_vals;
+    const double poly_step = 5.0;
+    const int poly_num = 10;
+    for (size_t i = 0; i < poly_num; i++) {
+        double x_coord = poly_step * i;
+        double y_coord = polyeval(new_coeffs, x_coord);
+        next_x_vals.push_back(x_coord);
+        next_y_vals.push_back(y_coord);
+        std::cout << "x_coord: " << x_coord << " y_coord: " << y_coord << std::endl;
+    }
+
     return this->action;
 }
