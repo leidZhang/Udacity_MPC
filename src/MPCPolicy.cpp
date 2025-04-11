@@ -19,6 +19,8 @@ void MPCPolicy::reset() {this->action = {0, 0}; }
 
 void MPCPolicy::setDt(double dt) {mpc.setDt(dt); }
 
+void MPCPolicy::setLf(double Lf) {mpc.setLf(Lf); }
+
 double MPCPolicy::getDt() {return mpc.dt; }
 
 double MPCPolicy::getLf() {return mpc.Lf; }

@@ -44,7 +44,12 @@ class FG_eval {
     int time_step = 10;
     // Fitted polynomial coefficients
     std::vector<double> coeffs;
-    FG_eval(std::vector<double> coeffs) { this->coeffs = coeffs; }
+    FG_eval(std::vector<double> coeffs, double Lf, double dt) { 
+        this->coeffs = coeffs;
+        this->Lf = Lf;
+        this->dt = dt;
+        this->time_step = static_cast<int>(1 / dt);
+    }
 
     typedef CPPAD_TESTVECTOR(AD<double>) ADvector;
 
@@ -120,6 +125,8 @@ MPC::MPC() {}
 MPC::~MPC() {}
 
 void MPC::setDt(double dt) {this->dt = dt; }
+
+void MPC::setLf(double Lf) {this->Lf = Lf; }
 
 std::vector<double> MPC::Solve(const std::vector<double> &state, const std::vector<double> &coeffs) {
     bool ok = true;
@@ -210,7 +217,7 @@ std::vector<double> MPC::Solve(const std::vector<double> &state, const std::vect
     constraints_upperbound[Index_epsi_start] = epsi;
 
     // object that computes objective and constraints
-    FG_eval fg_eval(coeffs);
+    FG_eval fg_eval(coeffs, this->Lf, this->dt);
 
     // NOTE: You don't have to worry about these options
     // options for IPOPT solver

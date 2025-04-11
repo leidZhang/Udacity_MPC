@@ -12,6 +12,7 @@ public:
     MPCPolicy(); 
     void reset();     
     void setDt(double dt); 
+    void setLf(double Lf); 
     double getDt(); 
     double getLf();
     std::vector<double> step(std::vector<std::vector<double>> &nextWaypoints, 

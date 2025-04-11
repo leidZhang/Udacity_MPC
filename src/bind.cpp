@@ -11,6 +11,7 @@ PYBIND11_MODULE(mpc, m) {
         .def(py::init<>())  // constructor
         .def("reset", &MPCPolicy::reset)
         .def("set_dt", &MPCPolicy::setDt)
+        .def("set_lf", &MPCPolicy::setLf)
         .def("get_dt", &MPCPolicy::getDt)
         .def("get_lf", &MPCPolicy::getLf)
         .def("step", &MPCPolicy::step);
