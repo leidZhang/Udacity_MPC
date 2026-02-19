@@ -8,7 +8,7 @@ from typing import Callable, Tuple, Any, List, Dict
 from threading import Thread, Event
 
 sys.path.append('./build')
-from mpc import MPCPolicy
+from mpc.mpc import MPCPolicy
 
 
 class TCPClient:

@@ -10,7 +10,7 @@ class MPC {
 	 * TODO: Set the timestep length and duration
 	 */
 	double dt = 0.1;
-        double Lf = 2.67;
+    double Lf = 2.67;
 
 	const int num_of_states = 6; // px, py, psi, v, cte, epsi
 	const int num_of_actutions = 2; // acceleration, steering angle
