@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include "MPC.h"
 #include <math.h>
 #include <cppad/cppad.hpp>

@@ -13,6 +13,9 @@ class MPCPolicy:
     def set_dt(dt: float) -> None:
         ...
 
+    def set_lf(lf: float) -> None:
+        ...
+
     def get_dt() -> float:
         ...
 

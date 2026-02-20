@@ -6,7 +6,7 @@
 namespace py = pybind11;
 
 // Make sure use the same name in CMakeLists
-PYBIND11_MODULE(mpc, m) {
+PYBIND11_MODULE(_mpc, m) {
     py::class_<MPCPolicy>(m, "MPCPolicy")
         .def(py::init<>())  // constructor
         .def("reset", &MPCPolicy::reset)

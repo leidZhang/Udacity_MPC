@@ -7,8 +7,7 @@ from socket import socket, AF_INET, SOCK_STREAM
 from typing import Callable, Tuple, Any, List, Dict
 from threading import Thread, Event
 
-sys.path.append('./build')
-from mpc.mpc import MPCPolicy
+from mpc import MPCPolicy
 
 
 class TCPClient:

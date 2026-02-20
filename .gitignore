@@ -5,3 +5,7 @@ tags
 .DS_Store
 CMakeFiles/
 *.egg-info/
+src/CppAD/
+src/pybind11
+*.pyd
+*.so
