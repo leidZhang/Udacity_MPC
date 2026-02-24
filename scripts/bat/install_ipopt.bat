@@ -9,6 +9,7 @@ set INSTALL_DIR=%~dp0..\..\..\Ipopt
 
 for %%I in ("%~dp0..\..\..\Ipopt") do set "INSTALL_DIR=%%~fI"
 set "IPOPT_BIN=%INSTALL_DIR%\bin"
+set "IPOPT_DIR=%INSTALL_DIR%"
 
 echo Installing Ipopt %IPOPT_VERSION%...
 
@@ -43,9 +44,8 @@ if($old -notlike '*'+$bin+'*'){ ^
   [Environment]::SetEnvironmentVariable('Path',$old+';'+$bin,'User') ^
 }"
 
-powershell -NoProfile -Command ^
-"$envVar='%IPOPT_DIR%'; ^
-[Environment]::SetEnvironmentVariable('IPOPT_DIR',$envVar,'User')"
+echo Setting '%IPOPT_DIR%' to environment variable...
+setx IPOPT_DIR "%IPOPT_DIR%"
 
 echo Done. Please reopen your terminal to start using ipopt.
 pause

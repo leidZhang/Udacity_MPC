@@ -7,6 +7,8 @@ set(sources src/binding/bind.cpp src/MPC.cpp src/MPCPolicy.cpp)
 if(WIN32)
     message(STATUS "Configuring for Windows")
     set(IPOPT_ROOT $ENV{IPOPT_DIR})
+    message(STATUS "IPOPT_DIR is set to: $ENV{IPOPT_DIR}")
+    
     if(NOT IPOPT_ROOT)
         message(FATAL_ERROR "Ipopt not found at ${IPOPT_ROOT}")
     endif()
